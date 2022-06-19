@@ -1,6 +1,5 @@
 import requests
 import time
-from keep_alive import keep_alive
 
 repair = 0
 
@@ -23,5 +22,3 @@ for i in range (100000):
         }
         r = requests.post('CHANNEL', data=payload, headers=header)
     time.sleep(40)
-
-keep_alive()
