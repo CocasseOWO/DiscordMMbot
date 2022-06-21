@@ -11,7 +11,7 @@ header = {
 
 for i in range (100000):
     repair = repair + 1
-    if repair == 5:
+    if repair == 30:
         payload = {
             'content': "m!repair"
         }
