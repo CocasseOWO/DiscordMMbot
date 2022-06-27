@@ -8,9 +8,9 @@ import numpy as np
 from pytesseract import pytesseract
 import shutil
 
-TOKEN = 'TOKEN_HERE'
-CHANNEL = 'CHANNEL_HERE'
-pytesseract.tesseract_cmd = "tesseract way here"
+TOKEN = 'TOKEN'
+CHANNEL = 'CHANNEL'
+pytesseract.tesseract_cmd = "TESSERACT WAY"
 BOTID = '520282851925688321'
 
 def send_json_request(ws,request):
@@ -99,6 +99,11 @@ while True:
             print('analysing image...')
 
             img = cv2.imread('test.jpeg')
+            cv2.rectangle(img, (450, 350), (500, 400), (0, 0, 0), -1)
+            cv2.rectangle(img, (250, 240), (285, 270), (0, 0, 0), -1)
+            cv2.rectangle(img, (160, 350), (220, 435), (0, 0, 0), -1)
+            cv2.rectangle(img, (65, 350), (160, 400), (0, 0, 0), -1)
+            cv2.rectangle(img, (330, 70), (415, 125), (0, 0, 0), -1)
             hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
             sensitivity = 70
@@ -109,18 +114,12 @@ while True:
             img = mask
 
             words_in_image = pytesseract.image_to_string(img)
+            words = words_in_image.replace('tate\n', '')
+
             time.sleep(2)
 
             payload = {
-                'content': f"m!f {words_in_image}"
-            }
-            r = requests.post(chan, data=payload, headers=header)
-            time.sleep(3)
-
-        elif event['d']['author']['id'] == f"{BOTID}" and "During the session you found" in event['d']['embeds'][0]['fields'][0]['name']:
-            print("prouuuuuuutXD")
-            payload = {
-                'content': "m!m"
+                'content': f"m!f {words}"
             }
             r = requests.post(chan, data=payload, headers=header)
             time.sleep(3)
